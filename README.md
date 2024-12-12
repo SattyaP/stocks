@@ -3,7 +3,7 @@
 ## Praktikum PemWeb 1 - Responsi 2
 
 ### Project Overview
-Manajemen Barang pada Hidamg
+Manajemen Barang pada Gudang
 
 ### Author
 - **Name**: Satya Garda Prasetyo
