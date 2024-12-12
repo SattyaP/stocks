@@ -26,20 +26,36 @@
             </div>
         </div>
 
-        <div class="p-3 border rounded bg-white shadow-sm align-items-center gap-3 d-flex">
-            <h5>Filter Ketersediaan -></h5>
-            <div class="d-flex gap-2 align-items-center">
-                <a class="btn btn-success rounded" href="{{ route('barang.filter', 1) }}">Ada</a>
-                <a class="btn btn-danger" href="{{ route('barang.filter', 0) }}">Kosong</a>
+        <div class="p-3 border rounded bg-white shadow-sm align-items-center gap-3 d-flex flex-wrap justify-content-between">
+            <div class="d-flex gap-3 align-items-center flex-wrap">
+                <h5>Filter Ketersediaan -></h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <form class="d-flex gap-2" action="{{ route('barang.filter') }}" enctype="multipart/form-data">
+                        <select class="form-select" name="filter" id="filter">
+                            <option {{ request('filter') == 'all' ? 'selected' : '' }} value="all">Semua</option>
+                            <option {{ request('filter') == 'ada' ? 'selected' : '' }} value="ada">Ada</option>
+                            <option {{ request('filter') == 'kosong' ? 'selected' : '' }} value="kosong">Kosong</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </form>
+
+                    <a href="{{ route('barang.list') }}" class="btn btn-warning">Reset</a>
+                </div>
+            </div>
+            <div class="">
+                <form action="{{ route('barang.search') }}" method="GET" class="d-flex gap-2">
+                    <input type="text" class="form-control" name="q" placeholder="Cari barang">
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                </form>
             </div>
         </div>
 
         <div class="row mt-4">
             @forelse ($barangs as $barang)
-                <div class="col-4">
-                    <div class="card">
-                        <h5
-                            class="card-header text-white fw-medium {{ $barang->stokBarang->first()->stok > 0 ? 'bg-success' : 'bg-danger' }} ">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-3">
+                        <h5 class="card-header text-white fw-medium {{ $barang->stokBarang->first()->stok > 0 ? 'bg-success' : 'bg-danger' }} ">
                             Stok {{ $barang->stokBarang->first()->stok > 0 ? 'Tersedia' : 'Tidak Tersedia' }}</h5>
                         <div class="card-body">
                             <h5 class="card-title fw-bolder">{{ $barang->nama_barang }}</h5>
@@ -60,9 +76,9 @@
                                 <form action="{{ route('barang.out', $barang->id) }}" method="POST"
                                     class="input-group flex-nowrap">
                                     @csrf
-                                    <input type="number" class="form-control" value="1" placeholder="1"
+                                    <input {{ $barang->stokBarang->first()->stok == 0 ? 'disabled' : '' }} type="number" class="form-control" value="1" placeholder="1"
                                         aria-label="out-barang" name="out_barang" aria-describedby="addon-wrapping">
-                                    <button type="submit" class="input-group-text" id="addon-wrapping">Out</button>
+                                    <button {{ $barang->stokBarang->first()->stok == 0 ? 'disabled' : '' }} type="submit" class="input-group-text" id="addon-wrapping">Out</button>
                                 </form>
                             </div>
                         </div>

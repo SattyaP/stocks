@@ -22,8 +22,18 @@ class BarangController extends Controller
         return view('barang.index', compact('barangs'));
     }
 
-    public function filter($query)
+    public function filter(Request $request)
     {
+        $query = '';
+        if ($request->filter == 'kosong') {
+            $query = 0;
+        } else if ($request->filter == 'ada') {
+            $query = 1;
+        } else {
+            $barangs = Barang::with('stokBarang')->latest()->paginate(15);
+            return view('barang.list_barang', compact('barangs'));
+        }
+
         $barangs = Barang::with('stokBarang')->where('status', $query)->latest()->paginate(15);
         return view('barang.list_barang', compact('barangs'));
     }
@@ -158,7 +168,7 @@ class BarangController extends Controller
 
     public function listBarang()
     {
-        $barangs = Barang::with('stokBarang')->paginate(15);
+        $barangs = Barang::with('stokBarang')->paginate(9);
         return view('barang.list_barang', compact('barangs'));
     }
 
@@ -239,5 +249,11 @@ class BarangController extends Controller
             $barang->save();
             return redirect()->route('barang.list')->with('success', 'Barang berhasil dikurangi');
         }
+    }
+
+    public function search(Request $request)
+    {
+        $barangs = Barang::where('nama_barang', 'like', '%' . $request->q . '%')->paginate(15);
+        return view('barang.list_barang', compact('barangs'));
     }
 }

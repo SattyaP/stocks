@@ -30,6 +30,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('delete-satuan/{id}', [SatuanController::class, 'destroy'])->name('satuan.destroy');
 
     Route::get('list-barang/filter-barang', [BarangController::class, 'filter'])->name('barang.filter');
+    Route::get('list-barang/search', [BarangController::class, 'search'])->name('barang.search');
 });
 
 

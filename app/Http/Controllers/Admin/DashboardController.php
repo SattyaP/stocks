@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $supplier = Supplier::count();
 
         $totalBarang = StokBarang::sum('stok');
-        $totalHarga = Barang::sum('harga_jual');
+        $totalHarga = Barang::sum('harga_beli');
 
         return view('dashboard', compact('barang', 'supplier', 'totalBarang', 'totalHarga'));
     }

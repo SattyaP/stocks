@@ -47,8 +47,8 @@
             <div class="col-md-3 mb-3">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">Total Barang Digudang</h5>
-                        <p class="card-text">Total Barang Digudang:</p>
+                        <h5 class="card-title fw-bold">Total Barang diGudang</h5>
+                        <p class="card-text">Total Barang diGudang:</p>
                         <span class="fs-2">{{ $totalBarang }}</span>
                     </div>
                 </div>
