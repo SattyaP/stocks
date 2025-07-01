@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('item_code')->unique();
             $table->string('item_name');
-            $table->integer('stock_quantity')->default(0);
             $table->decimal('purchase_price', 10, 2)->default(0.00);
 
             $table->string('image')->nullable();
-            $table->enum('status', ['available', 'empty'])->default('available');
 
             $table->unsignedBigInteger('unit_id');
 

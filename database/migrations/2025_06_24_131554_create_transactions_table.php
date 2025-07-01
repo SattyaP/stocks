@@ -17,10 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('supplier_id');
 
-            $table->enum('transaction_type', ['in', 'out']);
             $table->integer('quantity');
 
             $table->string('note')->nullable();
+            $table->enum('status', ['available', 'not available'])->default('available');
 
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');

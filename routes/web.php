@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('items/create', App\Livewire\Items\Create::class)->name('items.create');
 
     Route::get('suppliers', App\Livewire\Suppliers\Index::class)->name('suppliers.index');
-    Route::get('list-items', App\Livewire\ItemsLists\Index::class)->name('items.list');
+    Route::get('management-stock', App\Livewire\ItemsLists\Index::class)->name('items.stock');
     Route::get('list-units', App\Livewire\Units\Index::class)->name('units.index');
 
     Route::get('add-unit', )->name('units.create');

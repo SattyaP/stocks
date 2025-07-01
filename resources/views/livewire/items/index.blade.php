@@ -6,7 +6,7 @@
             <h2 class="fw-bold">Register Items</h2>
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item text-decoration-underline"><a href="{{ route('items.list') }}">Management
+                    <li class="breadcrumb-item text-decoration-underline"><a href="{{ route('items.stock') }}">Management
                             Items</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Register Item</li>
                 </ol>
@@ -45,8 +45,6 @@
                                 <th scope="col">Photo</th>
                                 <th scope="col">Item Code</th>
                                 <th scope="col">Item Name</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Status</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -60,9 +58,7 @@
                                     </td>
                                     <td>{{ $item->item_code }}</td>
                                     <td>{{ $item->item_name }}</td>
-                                    <td>{{ $item->stock_quantity }}
                                     </td>
-                                    <td>{{ ucfirst($item->status) }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-info"
                                             wire:click="open({{ $item->id }}, 'View Item')">
@@ -97,7 +93,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">{{ __('Empty Items') }}</td>
+                                    <td colspan="5" class="text-center">{{ __('Empty Items') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -161,11 +157,6 @@
                                 {{ $mode === 'View Item' ? 'disabled' : '' }} class="form-control"
                                 placeholder="Item Name">
 
-                            <label for="stock_quantity" class="form-label mt-2">Stock</label>
-                            <input type="number" id="stock_quantity" wire:model.defer="stock_quantity"
-                                {{ $mode === 'View Item' ? 'disabled' : '' }} class="form-control"
-                                placeholder="Stock">
-
                             <label for="purchase_price" class="form-label mt-2">Purchase
                                 Price</label>
                             <input type="number" id="purchase_price" wire:model.defer="purchase_price"
@@ -180,13 +171,6 @@
                                     <option value="{{ $unit->id }}">{{ $unit->unit_name }}
                                     </option>
                                 @endforeach
-                            </select>
-
-                            <label for="status" class="form-label mt-2">Status</label>
-                            <select id="status" wire:model.defer="status"
-                                {{ $mode === 'View Item' ? 'disabled' : '' }} class="form-control mb-3">
-                                <option value="available">Available</option>
-                                <option value="empty">Out of Stock</option>
                             </select>
 
                             @if ($mode !== 'View Item')

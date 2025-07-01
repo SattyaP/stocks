@@ -29,43 +29,6 @@
         <x-dashboard.card-readmore headline="Supplier" :description="'Total Suppliers: ' . $totalSuppliers" link="#" />
 
         <!-- Total Transactions -->
-        {{-- <div class="col-md-4 mb-4">
-                <div class="card text-white bg-dark shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Transaksi</h5>
-                        <h2 class="card-text">{{ $totalTransactions }}</h2>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transactions Today -->
-            <div class="col-md-4 mb-4">
-                <div class="card text-white bg-info shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Transaksi Hari Ini</h5>
-                        <h2 class="card-text">{{ $transactionsToday }}</h2>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transactions This Week -->
-            <div class="col-md-4 mb-4">
-                <div class="card text-white bg-warning shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Transaksi Minggu Ini</h5>
-                        <h2 class="card-text">{{ $transactionsThisWeek }}</h2>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transactions This Month -->
-            <div class="col-md-4 mb-4">
-                <div class="card text-white bg-danger shadow">
-                    <div class="card-body">
-                        <h5 class="card-title">Transaksi Bulan Ini</h5>
-                        <h2 class="card-text">{{ $transactionsThisMonth }}</h2>
-                    </div>
-                </div>
-            </div> --}}
+        <x-dashboard.card-qty headline="Transaction" :description="'Total Kekayaan'" :value="$totalTransactions" />
     </div>
 </div>

@@ -13,7 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script> --}}
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -48,7 +48,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a wire:navigate class="dropdown-item"
-                                        href="{{ route('items.list') }}">{{ __('List Items') }}</a>
+                                        href="{{ route('items.stock') }}">{{ __('Managament Stock') }}</a>
                                     <a wire:navigate class="dropdown-item"
                                         href="{{ route('items.index') }}">{{ __('Register Items') }}</a>
                                     <a wire:navigate class="dropdown-item"

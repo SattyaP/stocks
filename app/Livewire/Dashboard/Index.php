@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard;
 
 use App\Models\Item;
 use App\Models\Supplier;
+use App\Models\Transaction;
 use Livewire\Component;
 
 class Index extends Component
@@ -12,6 +13,8 @@ class Index extends Component
     {
         $totalItems = Item::count();
         $totalSuppliers = Supplier::count();
-        return view('livewire.dashboard.index', compact('totalItems', 'totalSuppliers'));
+        $totalTransactions = 420000;
+
+        return view('livewire.dashboard.index', compact('totalItems', 'totalSuppliers', 'totalTransactions'));
     }
 }

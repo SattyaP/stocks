@@ -9,9 +9,9 @@ class Transaction extends Model
     protected $fillable = [
         'item_id',
         'supplier_id',
-        'transaction_type', // 'in' or 'out'
         'quantity',
         'note',
+        'status', // 'avaialble', 'empty',
     ];
 
     public function item()

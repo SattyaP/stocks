@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class card_qty extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
-    {
-        //
+    public $headline;
+    public $description;
+    public $value;
+    public function __construct($headline, $description, $value) {
+        $this->headline = $headline;
+        $this->description = $description;
+        $this->value = $value;
     }
 
     /**

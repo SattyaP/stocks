@@ -14,19 +14,15 @@ class Index extends Component
     use WithFileUploads;
     public $item_code;
     public $item_name;
-    public $stock_quantity = 0;
     public $purchase_price = 0.0;
     public $image;
     public $unit_id;
-    public $status = 'available';
     public $supplier_id;
     public $rules = [
         'item_name' => 'required|string|max:255',
-        'stock_quantity' => 'required|integer|min:0',
         'purchase_price' => 'required|numeric|min:0',
         'image' => 'nullable|image|mimes:jpeg,webp,png|max:1024', // 1MB Max
         'unit_id' => 'required|exists:units,id',
-        'status' => 'required|in:available,empty',
     ];
 
     public $showModal = false;
@@ -48,16 +44,13 @@ class Index extends Component
             $this->selectedItemId = $item->id;
             $this->item_code = $item->item_code;
             $this->item_name = $item->item_name;
-            $this->stock_quantity = $item->stock_quantity;
             $this->purchase_price = $item->purchase_price;
             $this->unit_id = $item->unit_id;
-            $this->status = $item->status;
             $this->image = $item->image;
         } else {
             $this->mode = 'Add Item';
-            $this->reset(['item_name', 'stock_quantity', 'purchase_price', 'image', 'unit_id', 'status']);
+            $this->reset(['item_name', 'purchase_price', 'image', 'unit_id']);
             $this->item_code = strtoupper(uniqid('ITEM'));
-            $this->status = 'available';
         }
 
         $this->showModal = true;
@@ -66,13 +59,13 @@ class Index extends Component
     public function close()
     {
         $this->showModal = false;
-        $this->reset(['item_name', 'stock_quantity', 'purchase_price', 'image', 'unit_id', 'status']);
+        $this->reset(['item_name', 'purchase_price', 'image', 'unit_id']);
     }
 
     public function mount()
     {
         $this->item_code = strtoupper(uniqid('ITEM'));
-        $this->status = 'available';
+        $this->showModal = false;
     }
 
     public function store()
@@ -83,9 +76,7 @@ class Index extends Component
             $item = new Item();
             $item->item_code = strtoupper(uniqid('ITEM'));
             $item->item_name = $this->item_name;
-            $item->stock_quantity = $this->stock_quantity;
             $item->purchase_price = $this->purchase_price;
-            $item->status = $this->status;
             $item->unit_id = $this->unit_id;
 
             if ($this->image) {
@@ -110,9 +101,7 @@ class Index extends Component
 
             $item = Item::findOrFail($this->selectedItemId);
             $item->item_name = $this->item_name;
-            $item->stock_quantity = $this->stock_quantity;
             $item->purchase_price = $this->purchase_price;
-            $item->status = $this->status;
             $item->unit_id = $this->unit_id;
 
             if ($this->image) {
@@ -133,7 +122,7 @@ class Index extends Component
     public function submit_and_create()
     {
         $this->store();
-        $this->reset(['item_name', 'stock_quantity', 'purchase_price', 'image', 'unit_id', 'status']);
+        $this->reset(['item_name', 'purchase_price', 'image', 'unit_id']);
 
         return redirect()->route('items.create');
     }
