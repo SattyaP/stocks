@@ -1,6 +1,7 @@
 # 231111017_SATYAGARDAPRASETYO
 
 ## Praktikum PemWeb 1 - Responsi 2
+## Hadir Versi 2 Dengan Livewire ! & Impelement Alpin js Shot Out BOSKU
 
 ### Project Overview
 Manajemen Barang pada Gudang
