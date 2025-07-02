@@ -11,8 +11,9 @@ use Livewire\Attributes\On;
 #[On('refreshTransactionList')]
 class ListItem extends Component
 {
-    public $in_count = 0;
-    public $out_count = 0;
+    public array $in_count = [];
+    public array $out_count = [];
+
     public $filter_box = 'all';
     public $q = '';
 
@@ -44,13 +45,17 @@ class ListItem extends Component
 
     public function increaseStock($transactionId)
     {
+        $amount = (int) ($this->in_count[$transactionId] ?? 0);
         $transaction = Transaction::find($transactionId);
-        $amount = (int) $this->in_count;
 
         if ($transaction && $amount > 0) {
             $transaction->increment('quantity', $amount);
+            if ($transaction->quantity > 0) {
+                $transaction->status = 'available';
+                $transaction->save();
+            }
             $this->dispatch('refreshTransactionList');
-            $this->in_count = 0;
+            $this->in_count[$transactionId] = 0;
         } else {
             session()->flash('error', 'Invalid transaction or amount.');
         }
@@ -58,8 +63,8 @@ class ListItem extends Component
 
     public function decreaseStock($transactionId)
     {
+        $amount = (int) ($this->out_count[$transactionId] ?? 0);
         $transaction = Transaction::find($transactionId);
-        $amount = (int) $this->out_count;
 
         if ($transaction && $amount > 0) {
             if ($transaction->quantity >= $amount) {
@@ -69,7 +74,7 @@ class ListItem extends Component
                     $transaction->save();
                 }
                 $this->dispatch('refreshTransactionList');
-                $this->out_count = 0;
+                $this->out_count[$transactionId] = 0;
             } else {
                 session()->flash('error', 'Insufficient stock to decrease.');
             }

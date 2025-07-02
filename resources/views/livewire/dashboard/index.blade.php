@@ -22,13 +22,67 @@
     </div>
 
     <div class="row mt-4">
-        <!-- Total Items -->
-        <x-dashboard.card-readmore headline="Item" :description="'Total Items: ' . $totalItems" link="{{ route('items.index') }}" />
+        <!-- Total Items Registerd -->
+        <x-dashboard.card-readmore headline="Item" :description="'Total Items registered: ' . $totalItemRegistered" link="{{ route('items.index') }}" />
 
         <!-- Total Suppliers -->
-        <x-dashboard.card-readmore headline="Supplier" :description="'Total Suppliers: ' . $totalSuppliers" link="#" />
+        <x-dashboard.card-readmore headline="Supplier" :description="'Total Suppliers: ' . $totalSuppliers" link="{{ route('suppliers.index') }}" />
 
         <!-- Total Transactions -->
         <x-dashboard.card-qty headline="Transaction" :description="'Total Kekayaan'" :value="$totalTransactions" />
+
+        <!-- Total Items Transaction -->
+        <x-dashboard.card-qty headline="Transaction" :description="'Total Quantity Item Transaction'" :value="$totalItemsTransaction" />
+    </div>
+
+    <!-- Chart Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Transactions Overview</h5>
+                    <canvas id="dashboardChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        function renderDashboardChart() {
+            const chartCanvas = document.getElementById('dashboardChart');
+            if (!chartCanvas) return;
+            if (window.dashboardChartInstance) {
+                window.dashboardChartInstance.destroy();
+            }
+            const ctx = chartCanvas.getContext('2d');
+            window.dashboardChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {!! json_encode($chartLabels ?? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']) !!},
+                    datasets: [{
+                        label: 'Transactions',
+                        data: {!! json_encode($chartData ?? [12, 19, 3, 5, 2, 3]) !!},
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderDashboardChart);
+        document.addEventListener('livewire:navigated', renderDashboardChart);
+        document.addEventListener('livewire:load', renderDashboardChart);
+    </script>
+@endpush

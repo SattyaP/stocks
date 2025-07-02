@@ -21,7 +21,7 @@ class Index extends Component
     public $rules = [
         'item_name' => 'required|string|max:255',
         'purchase_price' => 'required|numeric|min:0',
-        'image' => 'nullable|image|mimes:jpeg,webp,png|max:1024', // 1MB Max
+        'image' => 'nullable|image|mimes:jpeg,webp,png|max:2048', // 1MB Max
         'unit_id' => 'required|exists:units,id',
     ];
 
@@ -44,7 +44,7 @@ class Index extends Component
             $this->selectedItemId = $item->id;
             $this->item_code = $item->item_code;
             $this->item_name = $item->item_name;
-            $this->purchase_price = $item->purchase_price;
+            $this->purchase_price = number_format((float)$item->purchase_price, 3, '.', '');
             $this->unit_id = $item->unit_id;
             $this->image = $item->image;
         } else {
@@ -140,7 +140,7 @@ class Index extends Component
 
     public function render()
     {
-        $items = Item::latest()->paginate(15);
+        $items = Item::latest()->paginate(5);
         $suppliers = Supplier::all();
         $units = Unit::all();
 

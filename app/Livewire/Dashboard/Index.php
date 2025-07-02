@@ -11,10 +11,27 @@ class Index extends Component
 {
     public function render()
     {
-        $totalItems = Item::count();
+        $totalItemRegistered = Item::count();
         $totalSuppliers = Supplier::count();
-        $totalTransactions = 420000;
+        $totalTransactions = Transaction::with('item')
+            ->get()
+            ->sum(function ($transaction) {
+                if (!$transaction->item) {
+                    return 0;
+                }
 
-        return view('livewire.dashboard.index', compact('totalItems', 'totalSuppliers', 'totalTransactions'));
+                $price = str_replace('.', '', $transaction->item->purchase_price);
+                return (float) $price * (float) $transaction->quantity;
+            });
+
+        $totalTransactions = 'Rp ' . number_format($totalTransactions, 0, ',', '.');
+
+        $totalItemsTransaction = Transaction::with('item')
+            ->get()
+            ->sum(function ($transaction) {
+                return $transaction->quantity;
+            });
+
+        return view('livewire.dashboard.index', compact('totalItemRegistered', 'totalSuppliers', 'totalTransactions', 'totalItemsTransaction'));
     }
 }

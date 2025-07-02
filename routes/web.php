@@ -17,7 +17,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', App\Livewire\Dashboard\Index::class)->name('dashboard');
 
     Route::get('items', App\Livewire\Items\Index::class)->name('items.index');
-    Route::get('test', App\Livewire\Items\Form::class)->name('items.test');
     Route::get('items/create', App\Livewire\Items\Create::class)->name('items.create');
 
     Route::get('suppliers', App\Livewire\Suppliers\Index::class)->name('suppliers.index');

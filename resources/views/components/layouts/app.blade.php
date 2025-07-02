@@ -51,13 +51,15 @@
                                         href="{{ route('items.stock') }}">{{ __('Managament Stock') }}</a>
                                     <a wire:navigate class="dropdown-item"
                                         href="{{ route('items.index') }}">{{ __('Register Items') }}</a>
-                                    <a wire:navigate class="dropdown-item"
-                                        href="{{ route('units.index') }}">{{ __('List Units') }}</a>
                                 </div>
                             </li>
                             <li class="nav-item">
                                 <a wire:navigate class="nav-link {{ request()->routeIs('supplier.*') ? 'active' : '' }}"
                                     href="{{ route('suppliers.index') }}">{{ __('Supplier') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a wire:navigate class="nav-link {{ request()->routeIs('units.*') ? 'active' : '' }}"
+                                    href="{{ route('units.index') }}">{{ __('List Units') }}</a>
                             </li>
                         @endauth
                     </ul>
@@ -108,6 +110,8 @@
     </div>
 
     @livewireScripts
+    @stack('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>
